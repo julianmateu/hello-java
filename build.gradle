@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.6'
+    implementation 'org.slf4j:slf4j-simple:2.0.6'
 
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
@@ -24,9 +25,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.26'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.0'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.6'
     testImplementation 'org.slf4j:slf4j-jdk-platform-logging:2.0.0'
 }
 
@@ -35,11 +36,15 @@ application {
 }
 
 test {
+    useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
     dependsOn test
+    reports {
+        html.required = true
+    }
 }
 
 jacocoTestCoverageVerification {
